@@ -14,14 +14,12 @@ function Meetings() {
 
   useEffect(async () => {
     const data = await client.get(`/contacts/${id}/meetings`)
-    setMeetings(data.meetings)
+    setMeetings(data)
   }, [])
 
   const handleChange = event => {
     const { name, value } = event.target
-    const newMeetingData = {...meetingData}
-    newMeetingData[`${name}`] = value
-    setMeetingData(newMeetingData)
+    setMeetingData( {...meetingData,[name] : value})
   }
 
   const handleSubmit = async event => {
@@ -32,8 +30,8 @@ function Meetings() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(meetingData)
     }
-    const data = await client.get(`/contacts/${id}/meetings`, opts)
-    setMeetings([...meetings, data.meeting])
+    const data = await client.post(`/contacts/${id}/meetings`, opts)
+    setMeetings(data)
   }
 
 

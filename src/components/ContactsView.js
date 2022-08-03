@@ -7,7 +7,8 @@ function ContactsView() {
   const { id } = useParams()
   useEffect(async () => {
     const data = await client.get(`/contacts/${id}`)
-    setContact(data.contact)
+    console.log('data view', data);
+    setContact(data)
   }, [])
 
   if (!contact) {
