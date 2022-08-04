@@ -4,16 +4,10 @@ import Spinner from './Spinner'
 import client from '../utils/client.js'
 
 function ContactsList({ contacts, setContacts, isLoading }) {
-  console.log('contacts', contacts);
   const [searchParams, setSearchParams] = useSearchParams()
-  
-  
-  const handleChange = async (event) => {
+  const handleChange = async event => {
     const {value, checked} = event.target
-    console.log('searchParams',searchParams);
     const types = searchParams.getAll('type')
-    console.log('types',types);
-    
     if (checked) types.push(value)
     if (!checked) types.splice(types.indexOf(value), 1)
     setSearchParams({type: types})

@@ -10,12 +10,15 @@ function ContactsEdit({ setContacts, contacts }) {
 
   useEffect(async () => {
     const data = await client.get(`/contacts/${id}`)
-    setContactData(data)
+    console.log('data',data);
+    setContactData(data.contact)
   }, [])
 
   const handleChange = event => {
     const { name, value } = event.target
-    setContactData({ ...contactData, [name]: value })
+    const newContactData = {...contactData}
+    newContactData[`${name}`] = value
+    setContactData(newContactData)
   }
 
   const handleSubmit = async event => {
@@ -27,8 +30,10 @@ function ContactsEdit({ setContacts, contacts }) {
       body: JSON.stringify(contactData)
     }
     const data = await client.put(`/contacts/${id}`, opts)
-    //const updatedContacts = contacts.map(contact => contact.id === Number(id) ? data.contact : contact)
-    setContacts(data)
+   
+    const updatedContacts = contacts.map(contact => contact.id === Number(id) ? data.contact : contact)
+    console.log('data in edit',updatedContacts);
+    setContacts(updatedContacts)
     navigate(`/contacts/${id}`)
   }
 

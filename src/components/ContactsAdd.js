@@ -4,28 +4,26 @@ import client from '../utils/client.js'
 import initialState from './initialState.js'
 
 function ContactsAdd({ setContacts, contacts }) {
-  
   const [contactData, setContactData] = useState(initialState)
   const navigate = useNavigate()
 
   const handleChange = event => {
     const { name, value } = event.target
-    //const newContactData = {...contactData}
-    //newContactData[`${name}`] = value
-    setContactData({ ...contactData, [name]: value })
+    const newContactData = {...contactData}
+    newContactData[`${name}`] = value
+    setContactData(newContactData)
   }
 
   const handleSubmit = async event => {
     event.preventDefault()
-    console.log('contact data', contactData);
+
     const opts = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(contactData)
     }
     const data = await client.post('/contacts', opts)
-    //console.log('data',data);
-    setContacts(data)
+    setContacts([...contacts, data.contact])
     navigate('/')
   }
 
@@ -40,25 +38,25 @@ function ContactsAdd({ setContacts, contacts }) {
       </select>
 
       <label htmlFor="firstName">First Name</label>
-      <input id="firstName" name="firstName" type="text" required onChange={handleChange} value={contactData.firstName} />
+      <input id="firstName" name="firstName" type="text" required onChange={handleChange} value={contactData.firstName}/>
 
       <label htmlFor="lastName">Last Name:</label>
-      <input id="lastName" name="lastName" type="text" required onChange={handleChange} value={contactData.lastName} />
+      <input id="lastName" name="lastName" type="text" required onChange={handleChange} value={contactData.lastName}/>
 
       <label htmlFor="street">Street:</label>
-      <input id="street" name="street" type="text" required onChange={handleChange} value={contactData.street} />
+      <input id="street" name="street" type="text" required onChange={handleChange} value={contactData.street}/>
 
       <label htmlFor="city">City:</label>
-      <input id="city" name="city" type="text" required onChange={handleChange} value={contactData.city} />
+      <input id="city" name="city" type="text" required onChange={handleChange} value={contactData.city}/>
 
       <label htmlFor="email">email:</label>
-      <input id="email" name="email" type="email" required onChange={handleChange} value={contactData.email} />
+      <input id="email" name="email" type="email" required onChange={handleChange} value={contactData.email}/>
 
       <label htmlFor="linkedin">Linkedin:</label>
-      <input id="linkedin" name="linkedin" type="url" required onChange={handleChange} value={contactData.linkedin} />
+      <input id="linkedin" name="linkedin" type="url" required onChange={handleChange} value={contactData.linkedin}/>
 
       <label htmlFor="twitter">Twitter:</label>
-      <input id="twitter" name="twitter" type="url" required onChange={handleChange} value={contactData.twitter} />
+      <input id="twitter" name="twitter" type="url" required onChange={handleChange} value={contactData.twitter}/>
 
       <div className="actions-section">
         <button className="button blue" type="submit">

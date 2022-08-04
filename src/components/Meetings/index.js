@@ -55,7 +55,7 @@ function Meetings() {
       </form>
 
       <ul className="contacts-list">
-        {meetings.map(meeting => <Meeting key={meeting.id} data={meeting} />)}
+        {meetings.map(meeting => <Meeting key={meeting.id} data={meeting} meetings={meetings} setMeetings={setMeetings}/>)}
       </ul>
     </>
   )
